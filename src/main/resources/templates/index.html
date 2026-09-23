@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ru"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>RecipeHub</title>
+</head>
+<body>
+<h1>RecipeHub</h1>
+
+<nav sec:authorize="isAnonymous()">
+    <a th:href="@{/login}">Войти</a>
+    <a th:href="@{/register}">Регистрация</a>
+</nav>
+
+<section sec:authorize="isAuthenticated()">
+    <p>Профиль: <span sec:authentication="name"></span></p>
+    <a th:href="@{/recipes/new}">Новый рецепт</a>
+    <form th:action="@{/logout}" method="post">
+        <button type="submit">Выйти</button>
+    </form>
+</section>
+
+<p th:if="${recipes.isEmpty()}">Рецептов пока нет</p>
+
+<main>
+    <article th:each="recipe : ${recipes}">
+        <h2>
+            <a th:href="@{/recipes/{id}(id=${recipe.id})}" th:text="${recipe.title}"></a>
+        </h2>
+        <p th:text="${recipe.author.name}"></p>
+        <p th:text="${#temporals.format(recipe.createdAt, 'dd.MM.yyyy HH:mm')}"></p>
+    </article>
+</main>
+</body>
+</html>
