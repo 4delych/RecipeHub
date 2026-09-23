@@ -1,0 +1,100 @@
+# RecipeHub
+
+RecipeHub - учебное веб-приложение на Java и Spring Boot. В проекте пользователи могут регистрироваться, входить в аккаунт и публиковать рецепты. Опубликованные рецепты доступны всем посетителям через общую ленту и страницу отдельного рецепта.
+
+## Реализованные возможности
+
+- регистрация пользователя;
+- вход и выход;
+- хранение паролей в виде BCrypt-хешей;
+- публикация рецептов авторизованными пользователями;
+- автоматическая привязка рецепта к текущему пользователю;
+- общедоступная лента рецептов;
+- просмотр отдельного рецепта;
+- отображение автора и даты публикации;
+- валидация форм;
+- управление схемой базы через Flyway.
+
+## Технологии
+
+- Java 21;
+- Spring Boot 4.1.1;
+- Spring MVC;
+- Spring Security;
+- Spring Data JPA;
+- Thymeleaf;
+- PostgreSQL;
+- Flyway;
+- Maven.
+
+## Требования для запуска
+
+- JDK 21;
+- PostgreSQL;
+- база данных `recipehub`;
+- Maven Wrapper, который уже находится в проекте.
+
+## Настройка PostgreSQL
+
+Перед запуском нужно создать пустую базу данных `recipehub`.
+
+```sql
+CREATE DATABASE recipehub;
+```
+
+Таблицы `users` и `recipes` создаются автоматически через Flyway при первом запуске приложения.
+
+## Переменные окружения
+
+Приложение читает параметры подключения к PostgreSQL из переменных окружения:
+
+- `DB_URL`;
+- `DB_USERNAME`;
+- `DB_PASSWORD`.
+
+Безопасный пример значений:
+
+```properties
+DB_URL=jdbc:postgresql://localhost:5432/recipehub
+DB_USERNAME=postgres
+DB_PASSWORD=your_password
+```
+
+## Запуск
+
+Windows:
+
+```powershell
+.\mvnw.cmd spring-boot:run
+```
+
+Linux/macOS:
+
+```bash
+./mvnw spring-boot:run
+```
+
+Также проект можно запустить через main-класс `RecipeHubApplication` в IntelliJ IDEA, предварительно задав переменные окружения в Run Configuration.
+
+## Основные адреса
+
+- `/` — публичная лента рецептов;
+- `/register` — регистрация;
+- `/login` — вход;
+- `/recipes/new` — публикация рецепта, требуется авторизация;
+- `/recipes/{id}` — просмотр рецепта.
+
+## Структура проекта
+
+- `config` — конфигурация Spring Security и общих bean-компонентов;
+- `controller` — MVC-контроллеры для страниц приложения;
+- `dto` — объекты форм с валидацией;
+- `model` — JPA-сущности;
+- `repository` — Spring Data JPA-репозитории;
+- `service` — бизнес-логика регистрации, входа и работы с рецептами.
+
+Дополнительные файлы:
+
+- `src/main/resources/templates` — Thymeleaf-шаблоны;
+- `src/main/resources/db/migration` — Flyway-миграции;
+- `src/main/resources/application.properties` — настройки приложения и подключения к базе данных.
