@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${recipe.title}">Рецепт</title>
+</head>
+<body>
+<h1 th:text="${recipe.title}"></h1>
+<p th:text="${recipe.author.name}"></p>
+<p th:text="${#temporals.format(recipe.createdAt, 'dd.MM.yyyy HH:mm')}"></p>
+
+<p th:if="${recipe.description != null and !recipe.description.isBlank()}" th:text="${recipe.description}"></p>
+
+<pre th:text="${recipe.ingredients}"></pre>
+<pre th:text="${recipe.instructions}"></pre>
+</body>
+</html>
