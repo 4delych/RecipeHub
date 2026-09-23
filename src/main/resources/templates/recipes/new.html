@@ -2,29 +2,29 @@
 <html lang="ru" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Новый рецепт</title>
+    <title th:text="#{recipe.new.title}">Новый рецепт</title>
 </head>
 <body>
-<h1>Новый рецепт</h1>
+<h1 th:text="#{recipe.new.title}">Новый рецепт</h1>
 
 <form th:action="@{/recipes/new}" th:object="${recipeForm}" method="post">
-    <label for="title">Название</label>
+    <label for="title" th:text="#{recipe.title}">Название</label>
     <input id="title" type="text" th:field="*{title}">
     <p th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></p>
 
-    <label for="description">Описание</label>
+    <label for="description" th:text="#{recipe.description}">Описание</label>
     <input id="description" type="text" th:field="*{description}">
     <p th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></p>
 
-    <label for="ingredients">Ингредиенты</label>
+    <label for="ingredients" th:text="#{recipe.ingredients}">Ингредиенты</label>
     <textarea id="ingredients" th:field="*{ingredients}"></textarea>
     <p th:if="${#fields.hasErrors('ingredients')}" th:errors="*{ingredients}"></p>
 
-    <label for="instructions">Инструкция</label>
+    <label for="instructions" th:text="#{recipe.instructions}">Инструкция</label>
     <textarea id="instructions" th:field="*{instructions}"></textarea>
     <p th:if="${#fields.hasErrors('instructions')}" th:errors="*{instructions}"></p>
 
-    <button type="submit">Опубликовать</button>
+    <button type="submit" th:text="#{recipe.publish}">Опубликовать</button>
 </form>
 </body>
 </html>

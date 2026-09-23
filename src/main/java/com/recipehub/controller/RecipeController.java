@@ -3,6 +3,7 @@ package com.recipehub.controller;
 import com.recipehub.dto.RecipeForm;
 import com.recipehub.model.Recipe;
 import com.recipehub.service.RecipeService;
+import com.recipehub.service.RecipeTranslationService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -15,15 +16,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.security.Principal;
+import java.util.Locale;
 import java.util.UUID;
 
 @Controller
 public class RecipeController {
 
     private final RecipeService recipeService;
+    private final RecipeTranslationService recipeTranslationService;
 
-    public RecipeController(RecipeService recipeService) {
+    public RecipeController(RecipeService recipeService, RecipeTranslationService recipeTranslationService) {
         this.recipeService = recipeService;
+        this.recipeTranslationService = recipeTranslationService;
     }
 
     @GetMapping("/recipes/new")
@@ -49,10 +53,11 @@ public class RecipeController {
     }
 
     @GetMapping("/recipes/{id}")
-    public String recipeDetails(@PathVariable UUID id, Model model) {
+    public String recipeDetails(@PathVariable UUID id, Model model, Locale locale) {
         Recipe recipe = recipeService.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         model.addAttribute("recipe", recipe);
+        model.addAttribute("recipeContent", recipeTranslationService.getRecipeContent(recipe, locale));
         return "recipes/details";
     }
 }

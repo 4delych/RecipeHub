@@ -2,22 +2,22 @@
 <html lang="ru" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Вход</title>
+    <title th:text="#{auth.login.title}">Вход</title>
 </head>
 <body>
-<h1>Вход</h1>
+<h1 th:text="#{auth.login.title}">Вход</h1>
 
-<p th:if="${param.error}">Неверный email или пароль</p>
-<p th:if="${param.logout}">Вы вышли из аккаунта</p>
+<p th:if="${param.error}" th:text="#{auth.login.error}">Неверный email или пароль</p>
+<p th:if="${param.logout}" th:text="#{auth.logout.success}">Вы вышли из аккаунта</p>
 
 <form th:action="@{/login}" method="post">
-    <label for="email">Email</label>
+    <label for="email" th:text="#{form.email}">Email</label>
     <input id="email" type="email" name="email">
 
-    <label for="password">Пароль</label>
+    <label for="password" th:text="#{form.password}">Пароль</label>
     <input id="password" type="password" name="password">
 
-    <button type="submit">Войти</button>
+    <button type="submit" th:text="#{nav.login}">Войти</button>
 </form>
 </body>
 </html>

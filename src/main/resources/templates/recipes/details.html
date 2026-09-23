@@ -2,16 +2,18 @@
 <html lang="ru" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title th:text="${recipe.title}">Рецепт</title>
+    <title th:text="${recipeContent.title()}">Рецепт</title>
 </head>
 <body>
-<h1 th:text="${recipe.title}"></h1>
+<h1 th:text="${recipeContent.title()}"></h1>
 <p th:text="${recipe.author.name}"></p>
 <p th:text="${#temporals.format(recipe.createdAt, 'dd.MM.yyyy HH:mm')}"></p>
 
-<p th:if="${recipe.description != null and !recipe.description.isBlank()}" th:text="${recipe.description}"></p>
+<p th:if="${recipeContent.translationUnavailable()}" th:text="#{translation.unavailable}">Перевод временно недоступен. Показан оригинал.</p>
 
-<pre th:text="${recipe.ingredients}"></pre>
-<pre th:text="${recipe.instructions}"></pre>
+<p th:if="${recipeContent.description() != null and !recipeContent.description().isBlank()}" th:text="${recipeContent.description()}"></p>
+
+<pre th:text="${recipeContent.ingredients()}"></pre>
+<pre th:text="${recipeContent.instructions()}"></pre>
 </body>
 </html>

@@ -40,7 +40,7 @@ public class AuthController {
         try {
             userService.register(form);
         } catch (RegistrationException exception) {
-            bindingResult.rejectValue(exception.getFieldName(), "registration.error", exception.getMessage());
+            bindingResult.rejectValue(exception.getFieldName(), exception.getMessageCode());
             return "auth/register";
         }
 

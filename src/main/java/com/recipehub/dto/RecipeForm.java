@@ -5,16 +5,16 @@ import jakarta.validation.constraints.Size;
 
 public class RecipeForm {
 
-    @NotBlank
-    @Size(max = 150)
+    @NotBlank(message = "{validation.recipe.title.required}")
+    @Size(max = 150, message = "{validation.recipe.title.size}")
     private String title;
 
     private String description;
 
-    @NotBlank
+    @NotBlank(message = "{validation.recipe.ingredients.required}")
     private String ingredients;
 
-    @NotBlank
+    @NotBlank(message = "{validation.recipe.instructions.required}")
     private String instructions;
 
     public String getTitle() {
