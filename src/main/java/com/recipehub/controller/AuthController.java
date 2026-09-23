@@ -26,6 +26,11 @@ public class AuthController {
         return "auth/register";
     }
 
+    @GetMapping("/login")
+    public String login() {
+        return "auth/login";
+    }
+
     @PostMapping("/register")
     public String register(
             @Valid @ModelAttribute("registrationForm") RegistrationForm form, BindingResult bindingResult) {
