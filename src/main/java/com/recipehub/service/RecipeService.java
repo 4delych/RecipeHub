@@ -8,6 +8,7 @@ import com.recipehub.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.UUID;
@@ -42,10 +43,11 @@ public class RecipeService {
 
     @Transactional(readOnly = true)
     public Optional<Recipe> findById(UUID id) {
-        return recipeRepository.findById(id)
-                .map(recipe -> {
-                    recipe.getAuthor().getName();
-                    return recipe;
-                });
+        return recipeRepository.findWithAuthorById(id);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Recipe> findAll() {
+        return recipeRepository.findAllByOrderByCreatedAtDesc();
     }
 }

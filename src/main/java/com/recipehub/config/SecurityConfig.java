@@ -21,6 +21,7 @@ public class SecurityConfig {
                 .authenticationProvider(authenticationProvider)
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
+                        .requestMatchers(HttpMethod.GET, "/").permitAll()
                         .requestMatchers("/register", "/login").permitAll()
                         .requestMatchers("/recipes/new").authenticated()
                         .requestMatchers(HttpMethod.GET, "/recipes/*").permitAll()
