@@ -26,11 +26,11 @@ public class UserService {
         String email = normalizeEmail(form.getEmail());
 
         if (!form.getPassword().equals(form.getPasswordConfirmation())) {
-            throw new RegistrationException("passwordConfirmation", "Passwords do not match");
+            throw new RegistrationException("passwordConfirmation", "registration.password.mismatch");
         }
 
         if (userRepository.existsByEmail(email)) {
-            throw new RegistrationException("email", "Email is already registered");
+            throw new RegistrationException("email", "registration.email.exists");
         }
 
         String passwordHash = passwordEncoder.encode(form.getPassword());
@@ -44,14 +44,20 @@ public class UserService {
     public static class RegistrationException extends RuntimeException {
 
         private final String fieldName;
+        private final String messageCode;
 
-        public RegistrationException(String fieldName, String message) {
-            super(message);
+        public RegistrationException(String fieldName, String messageCode) {
+            super(messageCode);
             this.fieldName = fieldName;
+            this.messageCode = messageCode;
         }
 
         public String getFieldName() {
             return fieldName;
+        }
+
+        public String getMessageCode() {
+            return messageCode;
         }
     }
 }

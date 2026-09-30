@@ -51,6 +51,7 @@ CREATE DATABASE recipehub;
 - `DB_URL`;
 - `DB_USERNAME`;
 - `DB_PASSWORD`.
+- `DEEPL_API_KEY`.
 
 Безопасный пример значений:
 
@@ -59,6 +60,8 @@ DB_URL=jdbc:postgresql://localhost:5432/recipehub
 DB_USERNAME=postgres
 DB_PASSWORD=your_password
 ```
+
+`DEEPL_API_KEY` нужен только для автоматического перевода рецептов на английский язык. Без него регистрация, вход, публикация и просмотр рецептов работают, а приложение показывает оригинальный текст рецептов. Реальное значение ключа не должно храниться в репозитории.
 
 ## Запуск
 

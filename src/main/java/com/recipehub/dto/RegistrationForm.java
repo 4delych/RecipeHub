@@ -6,20 +6,20 @@ import jakarta.validation.constraints.Size;
 
 public class RegistrationForm {
 
-    @NotBlank
-    @Size(max = 100)
+    @NotBlank(message = "{validation.name.required}")
+    @Size(max = 100, message = "{validation.name.size}")
     private String name;
 
-    @NotBlank
-    @Email
-    @Size(max = 255)
+    @NotBlank(message = "{validation.email.required}")
+    @Email(message = "{validation.email.invalid}")
+    @Size(max = 255, message = "{validation.email.size}")
     private String email;
 
-    @NotBlank
-    @Size(min = 8, max = 72)
+    @NotBlank(message = "{validation.password.required}")
+    @Size(min = 8, max = 72, message = "{validation.password.size}")
     private String password;
 
-    @NotBlank
+    @NotBlank(message = "{validation.passwordConfirmation.required}")
     private String passwordConfirmation;
 
     public String getName() {

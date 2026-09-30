@@ -4,30 +4,35 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
-    <title>RecipeHub</title>
+    <title th:text="#{app.title}">RecipeHub</title>
 </head>
 <body>
-<h1>RecipeHub</h1>
+<h1 th:text="#{app.title}">RecipeHub</h1>
+
+<p>
+    <a th:href="@{/(lang='ru')}" th:text="#{language.ru}">Русский</a>
+    <a th:href="@{/(lang='en')}" th:text="#{language.en}">English</a>
+</p>
 
 <nav sec:authorize="isAnonymous()">
-    <a th:href="@{/login}">Войти</a>
-    <a th:href="@{/register}">Регистрация</a>
+    <a th:href="@{/login}" th:text="#{nav.login}">Войти</a>
+    <a th:href="@{/register}" th:text="#{nav.register}">Регистрация</a>
 </nav>
 
 <section sec:authorize="isAuthenticated()">
-    <p>Профиль: <span sec:authentication="name"></span></p>
-    <a th:href="@{/recipes/new}">Новый рецепт</a>
+    <p><span th:text="#{nav.profile}">Профиль:</span> <span sec:authentication="name"></span></p>
+    <a th:href="@{/recipes/new}" th:text="#{nav.newRecipe}">Новый рецепт</a>
     <form th:action="@{/logout}" method="post">
-        <button type="submit">Выйти</button>
+        <button type="submit" th:text="#{nav.logout}">Выйти</button>
     </form>
 </section>
 
-<p th:if="${recipes.isEmpty()}">Рецептов пока нет</p>
+<p th:if="${recipes.isEmpty()}" th:text="#{feed.empty}">Рецептов пока нет</p>
 
 <main>
-    <article th:each="recipe : ${recipes}">
+    <article th:each="recipe : ${recipes}" th:with="translation=${recipeTranslations.get(recipe.id)}">
         <h2>
-            <a th:href="@{/recipes/{id}(id=${recipe.id})}" th:text="${recipe.title}"></a>
+            <a th:href="@{/recipes/{id}(id=${recipe.id})}" th:text="${translation != null ? translation.title : recipe.title}"></a>
         </h2>
         <p th:text="${recipe.author.name}"></p>
         <p th:text="${#temporals.format(recipe.createdAt, 'dd.MM.yyyy HH:mm')}"></p>
